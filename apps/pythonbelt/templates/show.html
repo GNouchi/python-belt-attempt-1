@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Belt Exam</title>
+    <style> 
+        .topcont{
+            background: lightcoral;
+        }
+        .botcont{
+            background: lightblue;
+        }
+        .links{
+            margin-left: 300px;
+        }
+    </style>
+</head>
+
+  <body>
+<!-- main container -->
+    <div  class="main container" >
+<!-- errorbox -->
+        <div class = "errorbox">
+          {% if messages %}
+          <ul class="messages">
+              {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+<!-- /errorbox -->
+<div class = "topbanner">
+    <h4> {{show_trip.destination}}
+        <a href="/travels" class="links"> Back </a>
+        <a href="/logout" class=""> Logout </a>
+    </h4>
+</div>
+<!--  start top container -->
+<div class = "container botcont" >
+    <p> Planned by: {{show_trip.owner.first_name}}</p>
+    <p> Description: {{show_trip.description}}</p>
+    <p> Travel From: {{show_trip.trip_from}}</p>
+    <p> Travel To: {{show_trip.trip_top}}</p>
+</div>
+<!-- /topcont -->
+<!--  start bottom container -->
+<div class = " container botcont" >
+    <h4> Other users joining this trip</h4>
+<!--  start loop -->
+    {%for x in non_owner_users%}
+    <p>{{x.first_name}} userid is {{x.id}}</p>
+    {%endfor%}
+    <!-- /loop -->
+</div>
+<!-- /botcont -->
+    </div>
+<!-- /main -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>

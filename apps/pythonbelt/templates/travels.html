@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Belt Exam</title>
+    <style> 
+        .table1{
+            background: lightblue;
+            padding-top: 1em; 
+            padding-bottom: 1em; 
+            }
+        .table2{
+            background:lightcyan;
+            border: 2px solid grey;
+            margin-top: 2em; 
+            }
+        .links{
+          vertical-align: top;
+          margin-left: 400px;
+          display: inline;
+        }
+        .t1 th{
+          background: lightcyan;
+        }        
+        .t1 td{
+          background: lightgreen
+        }
+        h4{
+          display: inline;
+        }
+    </style>
+</head>
+
+<body>
+<!-- main container -->
+    <div  class="main container" >
+<!-- errorbox -->
+        <div class = "errorbox">
+          {% if messages %}
+          <ul class="messages">
+              {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+<!-- /errorbox -->
+<!--  start top container -->
+<div class = "topbanner container">
+    <h4> {{Banner}}
+        <a href="/logout" class="links"> Logout </a>
+    </h4>
+</div>
+<!-- /topcont -->
+<!--  start bottom container -->
+        <div class = " container botcont" >
+<!-- start table1 cont -->
+            <div class = "container table1">
+                <table class="table t1">
+                    <thead>
+                      <tr>
+                        <th scope="col">Destination</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Trip Start</th>
+                        <th scope="col">Trip End</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+<!-- loop my trips in here -->
+                    {%for a in my_trips reversed%}
+                    <tr>
+                    <td>
+                      <a href="/show/{{a.id}}">{{a.destination}}</a>
+                    </td>
+                    <td>{{a.description}}</td>
+                    <td>{{a.trip_from}}</td>
+                    <td>{{a.trip_to}}</td>
+                    <td>
+                      <a href="cancel/{{a.id}}">Cancel</a>
+                      {%if a.owner.id == current_user.id %}
+                      <a href="destroy/{{a.id}}">Delete Trip</a>
+                      {%endif%}
+                    </td>
+                    </tr>
+                    {%endfor%}
+<!-- end mytrips loop -->
+                    </tbody>
+                  </table>
+<!-- /table1 -->
+<!-- start table2 cont -->
+<div class = "container table2">
+    <table class="table t2">
+        <thead>
+          <tr>
+            <th scope="col">Destination</th>
+            <th scope="col">Trip Start</th>
+            <th scope="col">Trip End</th>
+            <th scope="col">Do you want to Join?</th>
+          </tr>
+        </thead>
+        <tbody>
+<!-- loop other trips in here -->
+{%for b in other_trips reversed%}
+<tr>
+    <td><a href="/show/{{b.id}}">{{b.destination}}</a></td>
+    <td>{{b.trip_from}}</td>
+    <td>{{b.trip_to}}</td>
+    <td>
+      <a href="/join/{{b.id}}">Join Trip {{b.id}}</a>
+    </td>                  
+</tr>
+{%endfor%}
+        </tbody>
+      </table>
+  <!-- /table2 -->
+    </div>
+</div>
+      <a href ="/addtrip" class="btn btn-success btn-block">Add a trip </a>
+<!-- /botcont -->
+    </div>
+<!-- /main -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>
